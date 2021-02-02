@@ -14,6 +14,12 @@ const GlobalStyle = createGlobalStyle`
     div {
       width: 100%;
     }
+
+    .searchBar {
+      margin: 0% auto;
+      display: flex;
+      justify-content: center;
+    }
    
   }
   
