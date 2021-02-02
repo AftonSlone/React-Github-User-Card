@@ -9,6 +9,7 @@ const StyledDiv = styled.div`
   width: 40%;
   display: flex;
   border-radius: 25px;
+  margin-bottom: 20px;
 
   align-items: center;
 
@@ -72,7 +73,8 @@ export default class UserCard extends Component {
           </div>
           <div className="infoWrapper">
             <h2>Name: {this.state.user.name}</h2>
-            <p>Email: {this.state.user.email}</p>
+            <p>Username: {this.state.user.login}</p>
+            <p>Location:{this.state.user.location}</p>
             <p>Company: {this.state.user.company}</p>
             <p>Bio: {this.state.user.bio}</p>
             <a href={this.state.user.repos_url}>Link to Repos</a>
