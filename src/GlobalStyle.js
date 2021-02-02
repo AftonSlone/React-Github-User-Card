@@ -6,7 +6,14 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     background: black;
     font-family: Open-Sans, Helvetica, Sans-Serif;
+
+    h3 {
+      color: white;
+    }
     
+    div {
+      width: 100%;
+    }
    
   }
   

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import axios from "axios";
+
 
 const StyledDiv = styled.div`
   background: grey;
@@ -16,26 +18,66 @@ const StyledDiv = styled.div`
   }
   div {
     width: 95%;
+    margin-bottom: 10px;
   }
   a {
     color: white;
   }
+
+  .infoWrapper {
+    margin-bottom: 25px;
+  }
 `;
 
-export default function UserCard(props) {
-  const user = props.user;
-  return (
-    <StyledDiv>
-      <div>
-        <img src={user.avatar_url} alt="" />
-      </div>
-      <div>
-        <h2>Name: {user.name}</h2>
-        <p>Email: {user.email}</p>
-        <p>Company: {user.company}</p>
-        <p>Bio: {user.bio}</p>
-        <a href={user.repos_url}>Link to Repos</a>
-      </div>
-    </StyledDiv>
-  );
+export default class UserCard extends Component {
+  state = {
+    user: {},
+    followers: [],
+  };
+
+  componentDidMount() {
+    axios
+      .get(`https://api.github.com/users/${this.props.user}`)
+      .then((res) => {
+        this.setState({
+          user: res.data,
+        });
+      })
+      .catch((err) => {
+        debugger;
+      });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.user !== this.props.user) {
+
+    axios
+      .get(`https://api.github.com/users/${this.props.user}`)
+      .then((res) => {
+        this.setState({
+          user: res.data,
+        });
+      })
+      .catch((err) => {
+        debugger;
+      });
+    }
+  }
+
+  render() {
+    return (
+        <StyledDiv>
+          <div>
+            <img src={this.state.user.avatar_url} alt="" />
+          </div>
+          <div className="infoWrapper">
+            <h2>Name: {this.state.user.name}</h2>
+            <p>Email: {this.state.user.email}</p>
+            <p>Company: {this.state.user.company}</p>
+            <p>Bio: {this.state.user.bio}</p>
+            <a href={this.state.user.repos_url}>Link to Repos</a>
+          </div>
+        </StyledDiv>
+    );
+  }
 }
